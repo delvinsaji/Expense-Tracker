@@ -6,6 +6,7 @@ import { Ionicons, AntDesign } from "react-native-vector-icons";
 import { GlobalStyles } from "./Styles";
 import { useState } from "react";
 import { Modal, View, Pressable } from "react-native";
+import Mod from "./Components/Modal";
 
 const Bottom = createBottomTabNavigator();
 
@@ -15,9 +16,7 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <Modal visible={modal} animationType="slide">
-        <View
-          style={{ backgroundColor: GlobalStyles.colors.primary400, flex: 1 }}
-        ></View>
+        <Mod mod={setModal} />
       </Modal>
       <NavigationContainer>
         <Bottom.Navigator
