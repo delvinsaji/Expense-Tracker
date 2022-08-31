@@ -20,7 +20,6 @@ export default function App() {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState([]);
   useEffect(() => {
-    console.log(1);
     AsyncStorage.getItem("data2")
       .then((Response) => {
         setData(JSON.parse(Response));
@@ -29,7 +28,7 @@ export default function App() {
         alert(error);
       });
   }, [modal]);
-
+  console.log(`${modal} 1`);
   data ? latest(data) : "";
 
   return (
@@ -72,7 +71,9 @@ export default function App() {
               },
             }}
           >
-            {(props) => <Recent data={data ? data.slice(0, 7) : ""} />}
+            {(props) => (
+              <Recent data={data ? data.slice(0, 7) : ""} v={modal} />
+            )}
           </Bottom.Screen>
           <Bottom.Screen
             name="All Expenses"

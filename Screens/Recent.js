@@ -1,9 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Modal } from "react-native";
 import { GlobalStyles } from "../Styles";
 import Each from "../Components/Each";
 import ExpenseHead from "../Components/ExpenseHead";
+import { useEffect } from "react";
 
 export default function Recent(props) {
+  useEffect(() => {
+    console.log(props.data);
+  }, [props.v]);
   return (
     <View style={styles.background}>
       <ExpenseHead title={"Last 7 Days"} total={100} />
