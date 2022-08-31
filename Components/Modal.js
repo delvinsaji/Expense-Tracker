@@ -9,16 +9,20 @@ export default function Mod(props) {
   const [price, setPrice] = useState();
 
   async function press() {
+    var current = new Date();
     try {
       await AsyncStorage.getItem("data1")
         .then((Response) => {
           if (Response !== null) {
-            let a = [...JSON.parse(Response), { title: title, price: price }];
+            let a = [
+              ...JSON.parse(Response),
+              { title: title, price: price, current: current },
+            ];
             AsyncStorage.setItem("data1", JSON.stringify(a));
           } else {
             AsyncStorage.setItem(
               "data1",
-              JSON.stringify([{ title: title, price: price }])
+              JSON.stringify([{ title: title, price: price, current: current }])
             );
           }
         })

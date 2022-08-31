@@ -11,7 +11,6 @@ import Mod from "./Components/Modal";
 const Bottom = createBottomTabNavigator();
 
 export default function App() {
-  const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
   return (
     <View style={{ flex: 1 }}>
