@@ -11,17 +11,17 @@ export default function Mod(props) {
   async function press() {
     var current = new Date();
     try {
-      await AsyncStorage.getItem("data1")
+      await AsyncStorage.getItem("data2")
         .then((Response) => {
           if (Response !== null) {
             let a = [
               ...JSON.parse(Response),
               { title: title, price: price, current: current },
             ];
-            AsyncStorage.setItem("data1", JSON.stringify(a));
+            AsyncStorage.setItem("data2", JSON.stringify(a));
           } else {
             AsyncStorage.setItem(
-              "data1",
+              "data2",
               JSON.stringify([{ title: title, price: price, current: current }])
             );
           }

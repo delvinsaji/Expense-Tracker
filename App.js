@@ -16,25 +16,19 @@ function latest(data) {
   });
 }
 
-function Rec() {
-  return <Recent></Recent>;
-}
-
-function Al() {
-  return <All></All>;
-}
 export default function App() {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState([]);
   useEffect(() => {
-    AsyncStorage.getItem("data1")
+    console.log(1);
+    AsyncStorage.getItem("data2")
       .then((Response) => {
         setData(JSON.parse(Response));
       })
       .catch((error) => {
         alert(error);
       });
-  }, []);
+  }, [modal]);
 
   data ? latest(data) : "";
 
@@ -54,7 +48,6 @@ export default function App() {
         >
           <Bottom.Screen
             name="Recent Expenses"
-            component={Rec}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="hourglass" color={color} size={size} />
@@ -78,10 +71,11 @@ export default function App() {
                 );
               },
             }}
-          />
+          >
+            {(props) => <Recent data={data ? data.slice(0, 7) : ""} />}
+          </Bottom.Screen>
           <Bottom.Screen
             name="All Expenses"
-            component={Al}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="calendar" color={color} size={size} />
@@ -105,7 +99,11 @@ export default function App() {
                 );
               },
             }}
-          />
+          >
+            {(props) => {
+              <All data={data ? data : ""} />;
+            }}
+          </Bottom.Screen>
         </Bottom.Navigator>
       </NavigationContainer>
     </View>
