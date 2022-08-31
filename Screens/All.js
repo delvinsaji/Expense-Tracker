@@ -2,7 +2,8 @@ import { View, StyleSheet } from "react-native";
 import Each from "../Components/Each";
 import ExpenseHead from "../Components/ExpenseHead";
 import { GlobalStyles } from "../Styles";
-export default function All() {
+
+export default function All(props) {
   return (
     <View style={styles.background}>
       <ExpenseHead title={"Total"} total={100} />

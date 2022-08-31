@@ -4,14 +4,40 @@ import Recent from "./Screens/Recent";
 import All from "./Screens/All";
 import { Ionicons, AntDesign } from "react-native-vector-icons";
 import { GlobalStyles } from "./Styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal, View, Pressable } from "react-native";
 import Mod from "./Components/Modal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Bottom = createBottomTabNavigator();
+function latest(data) {
+  data.sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+}
 
+function Rec() {
+  return <Recent></Recent>;
+}
+
+function Al() {
+  return <All></All>;
+}
 export default function App() {
   const [modal, setModal] = useState(false);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    AsyncStorage.getItem("data1")
+      .then((Response) => {
+        setData(JSON.parse(Response));
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  data ? latest(data) : "";
+
   return (
     <View style={{ flex: 1 }}>
       <Modal visible={modal} animationType="slide">
@@ -28,7 +54,7 @@ export default function App() {
         >
           <Bottom.Screen
             name="Recent Expenses"
-            component={Recent}
+            component={Rec}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="hourglass" color={color} size={size} />
@@ -55,7 +81,7 @@ export default function App() {
           />
           <Bottom.Screen
             name="All Expenses"
-            component={All}
+            component={Al}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="calendar" color={color} size={size} />
