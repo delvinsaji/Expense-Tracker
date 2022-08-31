@@ -2,10 +2,34 @@ import { View, StyleSheet, Text } from "react-native";
 import { GlobalStyles } from "../Styles";
 import { Pressable, TextInput } from "react-native";
 import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Mod(props) {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState();
+
+  async function press() {
+    try {
+      await AsyncStorage.getItem("data1")
+        .then((Response) => {
+          if (Response !== null) {
+            let a = [...JSON.parse(Response), { title: title, price: price }];
+            AsyncStorage.setItem("data1", JSON.stringify(a));
+          } else {
+            AsyncStorage.setItem(
+              "data1",
+              JSON.stringify([{ title: title, price: price }])
+            );
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } catch (e) {
+      alert(e);
+    }
+  }
+
   return (
     <View style={{ backgroundColor: GlobalStyles.colors.primary700, flex: 1 }}>
       <View style={styles.header}>
@@ -32,6 +56,7 @@ export default function Mod(props) {
       <Pressable
         style={styles.buttonview}
         onPress={() => {
+          press();
           props.mod(false);
         }}
       >
