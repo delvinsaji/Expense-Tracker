@@ -72,7 +72,7 @@ export default function App() {
             }}
           >
             {(props) => (
-              <Recent data={data ? data.slice(0, 7) : ""} v={modal} />
+              <Recent data={data ? data.reverse().slice(0, 7) : ""} v={modal} />
             )}
           </Bottom.Screen>
           <Bottom.Screen
@@ -101,9 +101,7 @@ export default function App() {
               },
             }}
           >
-            {(props) => {
-              <All data={data ? data : ""} />;
-            }}
+            {(props) => <All data={data ? data : ""} v={modal} />}
           </Bottom.Screen>
         </Bottom.Navigator>
       </NavigationContainer>
